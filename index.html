@@ -7,8 +7,35 @@
     <meta name="description" content="PrimeWard is a strategic authority platform focused on trust, clarity, and long-term positioning for serious operators.">
 <meta name="robots" content="index, follow">
 <meta name="author" content="Tyrone Ochieng">
+<meta property="og:title" content="PrimeWard — Strategic Authority & Advisory">
+<meta property="og:description" content="Strategy for the trust collapse. One partner. One objective. 14-day execution.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ochiengt233.github.io/primeward/">
+<meta property="og:image" content="portrait.jpg">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@ochiengt233">
+<meta name="twitter:title" content="PrimeWard — Strategic Authority & Advisory">
+<meta name="twitter:description" content="Strategy for the trust collapse. One partner. One objective. 14-day execution.">
+<meta name="twitter:image" content="portrait.jpg">
+<meta name="twitter:creator" content="@ochiengt233">
+<meta name="keywords" content="strategic authority, advisory, trust, execution, PrimeWard">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+    <link rel="preload" as="image" href="portrait.jpg">
+    <!-- Preconnect to Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<!-- Load Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+
+<!-- Preload Hero Image -->
+<link rel="preload" as="image" href="portrait.jpg">
+
+<!-- Canonical URL -->
+<link rel="canonical" href="https://ochiengt233.github.io/primeward/">
     <style>
         :root { --onyx: #050505; --graphite: #0c0c0c; --titanium: #e2e2e2; }
         
@@ -116,6 +143,22 @@
             filter: grayscale(100%) contrast(1.12);
             opacity: 0.93;
         }
+        #success-overlay {
+    opacity: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: fixed;
+    inset: 0;
+    background: var(--onyx);
+    z-index: 100;
+    transition: opacity 0.5s ease;
+}
+
+#success-overlay.show {
+    opacity: 1;
+}
 
     </style>
 </head>
@@ -183,7 +226,7 @@
 
             <!-- Founder Presence -->
             <div class="hero-portrait">
-                <img src="portrait.jpg" alt="PrimeWard Authority">
+            <img src="portrait.jpg" alt="Tyrone Ochieng, Founder of PrimeWard">
             </div>
 
         </div>
@@ -242,11 +285,13 @@
                 <div class="group">
                     <textarea placeholder="The Single Painful Problem" rows="2" class="input-field resize-none" required></textarea>
                 </div>
-                <div class="pt-10">
-                    <button type="submit" class="w-full border border-white py-6 uppercase text-[10px] tracking-[0.5em] hover:bg-white hover:text-black transition-all duration-700">
-                        Initiate Protocol
-                    </button>
-                </div>
+          <div class="pt-10">
+    <button type="submit" 
+            aria-label="Submit Strategic Intake Form"
+            class="w-full border border-white py-6 uppercase text-[10px] tracking-[0.5em] hover:bg-white hover:text-black transition-all duration-700">
+        Initiate Protocol
+    </button>
+</div>
             </form>
         </div>
     </section>
@@ -266,24 +311,30 @@
         <div class="italic">Sovereign Execution Unit</div>
     </footer>
 
-    <script>
-        // Intersection Observer for Reveal
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('active');
-            });
-        }, { threshold: 0.1 });
+<!-- Your other sections above -->
 
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-        // Form Animation & Redirection
-        document.getElementById('intake-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            document.getElementById('success-overlay').style.display = 'flex';
-            setTimeout(() => {
-                window.location.href = "mailto:ochiengt233@gmail.com?subject=PrimeWard Intake: Initial Protocol";
-            }, 2500);
+<script>
+    // Intersection Observer for Reveal
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) entry.target.classList.add('active');
         });
-    </script>
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Form Animation & Redirection
+    document.getElementById('intake-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const overlay = document.getElementById('success-overlay');
+        overlay.classList.add('show'); // fade in overlay
+
+        setTimeout(() => {
+            window.location.href = "mailto:ochiengt233@gmail.com?subject=PrimeWard Intake: Initial Protocol";
+        }, 2500); // wait 2.5s before opening mailto
+    });
+</script>
+
 </body>
 </html>

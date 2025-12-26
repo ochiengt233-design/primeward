@@ -15,7 +15,7 @@
             font-family: 'Inter', sans-serif; 
             line-height: 1.6; 
             overflow-x: hidden; 
-            cursor: none; /* Elite custom cursor active */
+            cursor: none; 
         }
         .authority-serif { font-family: 'Playfair Display', serif; }
         
@@ -45,7 +45,6 @@
             position: relative; overflow: hidden;
         }
 
-        /* View Switching Animations */
         .content-view { display: none; animation: viewShift 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         .content-view.active { display: block; }
 
@@ -67,11 +66,9 @@
         }
         .loading-bar.active { width: 100%; }
 
-        /* NAV STYLING */
         .nav-link { opacity: 0.4; transition: all 0.3s; cursor: none; }
         .nav-link.active-view { opacity: 1; border-bottom: 1px solid white; }
 
-        /* FORM STYLING */
         .input-field { 
             background: transparent; border: none; border-bottom: 1px solid rgba(255,255,255,0.1); 
             width: 100%; color: white; padding: 0.8rem 0; font-size: 11px; transition: 0.4s; 
@@ -87,7 +84,7 @@
     <nav class="fixed w-full z-50 px-8 py-10 flex justify-between items-center mix-blend-difference">
         <div class="flex items-center gap-4 cursor-none" onclick="showView('home')">
             <img src="logo.png" alt="PrimeWard Logo" class="h-10 w-auto">
-            <span class="text-[10px] tracking-[0.6em] uppercase font-bold hidden md:block">PrimeWard</span>
+            <span class="text-[10px] tracking-[0.6em] uppercase font-bold hidden md:block decrypt" data-text="PrimeWard">PrimeWard</span>
         </div>
         <div class="flex gap-10 text-[9px] tracking-[0.4em] uppercase">
             <span class="nav-link active-view" id="nav-home" onclick="showView('home')">Console</span>
@@ -102,14 +99,19 @@
             <div class="scanline"></div>
             
             <div class="hidden md:flex justify-between items-center px-10 py-5 border-b border-white/5 bg-white/[0.01] relative z-10">
-                <div id="status-tag" class="text-[8px] tracking-[0.6em] uppercase opacity-30">Status: System_Idle</div>
+                <div id="status-tag" class="text-[8px] tracking-[0.6em] uppercase opacity-30 flex items-center gap-2">
+                    <span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.6)]"></span>
+                    <span class="decrypt" data-text="Status: System_Idle">Status: System_Idle</span>
+                </div>
                 <div class="text-[8px] tracking-[0.4em] uppercase opacity-20">Secure_Handover_V2025</div>
             </div>
 
             <div id="view-home" class="content-view active">
                 <div class="flex flex-col md:flex-row min-h-[500px]">
                     <div class="flex-1 p-10 md:p-24 space-y-10 relative z-10">
-                        <h1 class="authority-serif text-6xl md:text-9xl italic leading-[0.8] tracking-tighter">Quiet<br>Power</h1>
+                        <h1 class="authority-serif text-6xl md:text-9xl italic leading-[0.8] tracking-tighter decrypt" data-text="Quiet Power">
+                            Quiet Power
+                        </h1>
                         <p class="text-zinc-500 text-xs md:text-sm max-w-xs leading-loose tracking-widest uppercase">
                             Strategy for the trust collapse. 14-Day isolated execution for serious operators.
                         </p>
@@ -143,14 +145,17 @@
                     <form id="intake-form" class="space-y-10 text-left">
                         <input type="text" placeholder="ENTITY / IDENTITY" class="input-field" required>
                         <textarea placeholder="CORE FRICTION" rows="2" class="input-field resize-none" required></textarea>
-                        <button type="submit" class="w-full bg-white text-black py-6 text-[10px] tracking-[0.5em] font-bold uppercase">Initiate Transmission</button>
+                        <button type="submit" id="submit-btn" class="w-full bg-white text-black py-6 text-[10px] tracking-[0.5em] font-bold uppercase transition-all duration-500">
+                            Initiate Transmission
+                        </button>
                     </form>
                 </div>
             </div>
 
             <div id="view-success" class="content-view">
                 <div class="p-10 md:p-24 text-center">
-                    <h2 class="authority-serif text-6xl mb-6 italic underline decoration-1">Received.</h2>
+                    <h2 class="authority-serif text-6xl mb-6 italic underline decoration-1 decrypt" data-text="Received.">Received.</h2>
+                    <div id="protocol-id" class="text-[10px] font-mono text-white/40 mb-4 tracking-[0.2em]"></div>
                     <p class="text-zinc-500 tracking-[0.4em] text-[10px] uppercase">Identity vetting in progress.</p>
                     <button onclick="showView('home')" class="mt-12 text-[9px] border border-white/20 px-10 py-4 uppercase tracking-widest hover:bg-white hover:text-black transition-all">Return</button>
                 </div>
@@ -186,38 +191,69 @@
             follower.style.left = (e.clientX - 16) + 'px'; follower.style.top = (e.clientY - 16) + 'px';
         });
 
+        // DECRYPTION ENGINE
+        function decryptText(element) {
+            const originalText = element.getAttribute('data-text');
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*';
+            let iterations = 0;
+            const interval = setInterval(() => {
+                element.innerText = originalText.split("").map((char, index) => {
+                    if (index < iterations) return originalText[index];
+                    return characters[Math.floor(Math.random() * characters.length)];
+                }).join("");
+                if (iterations >= originalText.length) clearInterval(interval);
+                iterations += 1 / 3;
+            }, 30);
+        }
+
+        window.onload = () => { document.querySelectorAll('.decrypt').forEach(decryptText); };
+
         // NAVIGATION SWITCHER
         function showView(viewId) {
             const loadingBar = document.getElementById('loading-bar');
-            const statusTag = document.getElementById('status-tag');
+            const statusTag = document.getElementById('status-tag').querySelector('.decrypt');
             
             loadingBar.classList.add('active');
-            statusTag.innerText = "Status: Executing_" + viewId.toUpperCase();
+            statusTag.setAttribute('data-text', "Status: Executing_" + viewId.toUpperCase());
+            decryptText(statusTag);
             
             setTimeout(() => {
-                // Hide all views
                 document.querySelectorAll('.content-view').forEach(v => v.classList.remove('active'));
-                // Show selected view
                 document.getElementById('view-' + viewId).classList.add('active');
                 
-                // Update nav link active state
                 document.querySelectorAll('.nav-link').forEach(l => {
                     l.classList.remove('active-view');
-                    if(l.id === 'nav-' + (viewId === 'home' ? 'home' : (viewId === 'process' ? 'process' : 'intake'))) {
-                        l.classList.add('active-view');
-                    }
+                    if(l.id === 'nav-' + (viewId === 'home' ? 'home' : (viewId === 'process' ? 'process' : 'intake'))) l.classList.add('active-view');
                 });
 
                 loadingBar.classList.remove('active');
-                statusTag.innerText = "Status: Viewing_" + viewId.toUpperCase();
                 window.scrollTo({top: 0, behavior: 'smooth'});
+                
+                // Trigger decrypt if the new view has decrypt elements
+                document.getElementById('view-' + viewId).querySelectorAll('.decrypt').forEach(decryptText);
             }, 600);
         }
 
-        // FORM LOGIC
-        document.getElementById('intake-form').addEventListener('submit', (e) => {
+        // STRATEGIC FORM LOGIC
+        document.getElementById('intake-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            showView('success');
+            const btn = document.getElementById('submit-btn');
+            
+            btn.innerText = "ENCRYPTING TRANSMISSION...";
+            btn.style.opacity = "0.5";
+            btn.disabled = true;
+            
+            setTimeout(() => {
+                btn.innerText = "UPLOADING TO ARCHIVE...";
+                setTimeout(() => {
+                    const id = "PW-ORD-" + Math.floor(1000 + Math.random() * 9000);
+                    document.getElementById('protocol-id').innerText = "REF_ID: " + id;
+                    showView('success');
+                    btn.innerText = "INITIATE TRANSMISSION";
+                    btn.style.opacity = "1";
+                    btn.disabled = false;
+                }, 1500);
+            }, 1500);
         });
     </script>
 </body>

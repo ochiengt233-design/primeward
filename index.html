@@ -3,338 +3,179 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PrimeWard — Strategic Authority & Advisory</title>
-    <meta name="description" content="PrimeWard is a strategic authority platform focused on trust, clarity, and long-term positioning for serious operators.">
-<meta name="robots" content="index, follow">
-<meta name="author" content="Tyrone Ochieng">
-<meta property="og:title" content="PrimeWard — Strategic Authority & Advisory">
-<meta property="og:description" content="Strategy for the trust collapse. One partner. One objective. 14-day execution.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://ochiengt233.github.io/primeward/">
-<meta property="og:image" content="portrait.jpg">
-
-<!-- Twitter Card -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:site" content="@ochiengt233">
-<meta name="twitter:title" content="PrimeWard — Strategic Authority & Advisory">
-<meta name="twitter:description" content="Strategy for the trust collapse. One partner. One objective. 14-day execution.">
-<meta name="twitter:image" content="portrait.jpg">
-<meta name="twitter:creator" content="@ochiengt233">
-<meta name="keywords" content="strategic authority, advisory, trust, execution, PrimeWard">
+    <title>PrimeWard — Strategic Authority</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
-    <link rel="preload" as="image" href="portrait.jpg">
-    <!-- Preconnect to Google Fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<!-- Load Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
-
-<!-- Preload Hero Image -->
-<link rel="preload" as="image" href="portrait.jpg">
-
-<!-- Canonical URL -->
-<link rel="canonical" href="https://ochiengt233.github.io/primeward/">
     <style>
         :root { --onyx: #050505; --graphite: #0c0c0c; --titanium: #e2e2e2; }
+        body { background-color: var(--onyx); color: var(--titanium); font-family: 'Inter', sans-serif; line-height: 1.6; overflow-x: hidden; }
+        .authority-serif { font-family: 'Playfair Display', serif; }
         
-        body { 
-            background-color: var(--onyx); 
-            color: var(--titanium); 
-            font-family: 'Inter', sans-serif; 
-            overflow-x: hidden;
-            line-height: 1.8;
+        .dashboard-stage {
+            background: #0a0a0a;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            min-height: 600px;
+            transition: all 0.5s ease;
         }
 
-        .authority-serif { font-family: 'Playfair Display', serif; letter-spacing: -0.01em; }
-        
-        /* Nav Calibration */
-        .glass-panel { 
-            background: rgba(5, 5, 5, 0.85); 
-            backdrop-filter: blur(20px); 
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        .content-view { display: none; animation: fadeIn 0.6s ease forwards; }
+        .content-view.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .brand-logo-calibrated {
-            height: 52px;
-            width: auto;
-            filter: brightness(1.1);
-            will-change: opacity;
-            transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        /* Animation Triggers */
-        .reveal { opacity: 0; transform: translateY(24px); transition: all 1.1s cubic-bezier(0.16, 1, 0.3, 1); }
-        .reveal.active { opacity: 1; transform: translateY(0); }
-
-        /* Form Esthetics */
         .input-field { 
-            background: transparent; 
-            border: none; 
-            border-bottom: 1px solid rgba(255,255,255,0.1); 
-            width: 100%; 
-            color: white; 
-            padding: 1.2rem 0; 
-            border-radius: 0; 
-            transition: 0.4s; 
+            background: transparent; border: none; border-bottom: 1px solid rgba(255,255,255,0.1); 
+            width: 100%; color: white; padding: 0.8rem 0; font-size: 11px; transition: 0.4s; 
         }
         .input-field:focus { outline: none; border-bottom: 1px solid white; }
-        
-        ::placeholder { 
-            color: rgba(255, 255, 255, 0.15); 
-            text-transform: uppercase; 
-            font-size: 9px; 
-            letter-spacing: 0.25em; 
-        }
 
-        /* Transmission Overlay */
+        .nav-link { cursor: pointer; transition: opacity 0.3s; }
+        .nav-link:hover { opacity: 1 !important; }
+
         #success-overlay { 
             display: none; position: fixed; inset: 0; background: var(--onyx); 
             z-index: 100; justify-content: center; align-items: center; flex-direction: column; 
         }
-        .scanline { width: 100%; height: 2px; background: rgba(255,255,255,0.1); position: absolute; top: 0; animation: scan 2s linear infinite; }
-        @keyframes scan { from { top: 0; } to { top: 100%; } }
-
-        .hero-gradient { background: radial-gradient(circle at 50% -20%, #161616 0%, #050505 80%); }
-
-        /* Hero Portrait */
-        .hero-frame {
-            display: grid;
-            grid-template-columns: 1.15fr 0.85fr;
-            gap: 5rem;
-            align-items: center;
-        }
-
-        .hero-portrait {
-            position: relative;
-            max-width: 420px;
-            margin-left: auto;
-        }
-
-        .hero-portrait::before {
-            content: "";
-            position: absolute;
-            inset: -20%;
-            background: radial-gradient(circle,
-                rgba(255,255,255,0.06),
-                transparent 70%);
-            z-index: 0;
-        }
-
-        .hero-portrait::after {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(
-                to left,
-                #050505 12%,
-                rgba(5,5,5,0.6) 35%,
-                transparent 70%
-            );
-            z-index: 2;
-        }
-
-        .hero-portrait img {
-            position: relative;
-            z-index: 1;
-            width: 100%;
-            filter: grayscale(100%) contrast(1.12);
-            opacity: 0.93;
-        }
-        #success-overlay {
-    opacity: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    position: fixed;
-    inset: 0;
-    background: var(--onyx);
-    z-index: 100;
-    transition: opacity 0.5s ease;
-}
-
-#success-overlay.show {
-    opacity: 1;
-}
-
     </style>
 </head>
 <body class="antialiased selection:bg-white selection:text-black">
 
     <div id="success-overlay">
-        <div class="scanline"></div>
-        <div class="text-[10px] tracking-[0.5em] uppercase animate-pulse mb-2">Transmission Secure</div>
-        <div class="authority-serif italic text-white/60">Vetting Identity...</div>
+        <div class="text-[9px] tracking-[0.5em] uppercase animate-pulse mb-2">Transmission Secure</div>
+        <div class="authority-serif italic text-white/40">Routing Identity...</div>
     </div>
 
-    <nav class="fixed w-full z-50 glass-panel px-8 flex justify-between items-center min-h-[72px]">
-        <div class="flex items-center gap-5">
-            <div class="brand-logo-calibrated">
-                <svg width="44" height="44" viewBox="0 0 200 200" fill="none"
-                     xmlns="http://www.w3.org/2000/svg"
-                     class="opacity-90">
-                    <path d="M40 20H160V180H40V20Z"
-                          stroke="white" stroke-width="2"
-                          stroke-linejoin="bevel"/>
-                    <path d="M85 60V140M85 60H115
-                             C125 60 130 65 130 75
-                             V85C130 95 125 100 115 100H85"
-                          stroke="white" stroke-width="8"
-                          stroke-linecap="square"/>
-                    <rect x="75" y="115" width="50" height="2"
-                          fill="white" opacity="0.45"/>
-                </svg>
-            </div>
-            <div class="hidden sm:block text-[11px] tracking-[0.45em] uppercase font-semibold ml-2">PrimeWard</div>
+    <nav class="fixed w-full z-50 px-6 py-8 flex justify-between items-center mix-blend-difference">
+        <div class="flex items-center gap-3 nav-link" onclick="showView('home')">
+            <div class="w-8 h-8 border border-white flex items-center justify-center font-bold text-[10px]">P</div>
+            <span class="text-[10px] tracking-[0.4em] uppercase font-semibold hidden md:block">PrimeWard</span>
         </div>
-        <div class="hidden md:flex gap-10 text-[10px] uppercase tracking-[0.3em] font-light text-[#666]">
-            <a href="#process" class="hover:text-white transition-colors">Process</a>
-            <a href="#intake" class="hover:text-white transition-colors">Intake</a>
-            <a href="#loop" class="hover:text-white transition-colors">Future</a>
-        </div>
-        <div class="text-[9px] uppercase tracking-[0.3em] opacity-40 font-mono">
-            ochiengt233@gmail.com
+        <div class="flex gap-8 text-[9px] tracking-[0.3em] uppercase opacity-50">
+            <span class="nav-link" onclick="showView('process')">Process</span>
+            <span class="nav-link" onclick="showView('intake')">Intake</span>
+            <span class="nav-link" onclick="showView('future')">Future</span>
         </div>
     </nav>
 
-    <section class="min-h-screen flex items-center px-6 hero-gradient">
-        <div class="max-w-6xl mx-auto hero-frame reveal">
-
-            <!-- Authority Copy -->
-            <div class="space-y-10">
-                <h1 class="authority-serif text-6xl md:text-8xl leading-tight">
-                    Built for <br>
-                    <span class="italic text-white/90">Quiet Authority</span>
-                </h1>
-
-                <p class="text-[#888] text-lg max-w-xl font-light tracking-wide">
-                    Strategy for the trust collapse. One partner. One objective. 14-day execution.
-                </p>
-
-                <div class="pt-10">
-                    <a href="#intake"
-                       class="border border-white/20 hover:bg-white hover:text-black
-                              transition-all duration-500 px-14 py-5
-                              uppercase text-[10px] tracking-[0.4em] inline-block">
-                        Secure Admission
-                    </a>
-                </div>
-            </div>
-
-            <!-- Founder Presence -->
-            <div class="hero-portrait">
-            <img src="portrait.jpg" alt="Tyrone Ochieng, Founder of PrimeWard">
-            </div>
-
-        </div>
-    </section>
-
-    <section id="process" class="py-40 px-6 border-t border-white/5 bg-[#080808]">
-        <div class="max-w-5xl mx-auto">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-20 gap-6">
-                <h2 class="authority-serif text-4xl italic">The 14-Day Sprint</h2>
-                <div class="text-[9px] tracking-[0.4em] uppercase opacity-40">Protocol: V.2025_Rapid</div>
-            </div>
+    <main class="min-h-screen flex flex-col items-center justify-center p-4 md:p-12 pt-32">
+        <div class="dashboard-stage max-w-6xl w-full rounded-sm overflow-hidden shadow-2xl">
             
-            <div class="grid grid-cols-1 md:grid-cols-5 gap-px bg-white/5 border border-white/5">
-                <div class="bg-[#050505] p-8 reveal">
-                    <div class="text-[9px] text-white/30 mb-6 font-mono">01—02</div>
-                    <div class="text-xs uppercase tracking-widest font-bold mb-3">Extraction</div>
-                    <p class="text-[11px] text-[#666] leading-relaxed">Surgical isolation of the core outcome failure.</p>
+            <div class="hidden md:flex justify-between items-center px-10 py-6 border-b border-white/5 bg-white/[0.02]">
+                <div id="status-tag" class="text-[9px] tracking-[0.5em] uppercase opacity-40">System Status: Home</div>
+                <div class="text-[9px] tracking-[0.3em] uppercase opacity-40 italic">Sovereign Execution Unit</div>
+            </div>
+
+            <div id="view-home" class="content-view active">
+                <div class="flex flex-col md:flex-row border-b border-white/5">
+                    <div class="flex-1 p-8 md:p-20 space-y-8">
+                        <h1 class="authority-serif text-5xl md:text-8xl italic leading-[0.9]">Strategic<br>Authority</h1>
+                        <p class="text-[#666] text-xs md:text-sm max-w-sm leading-relaxed">Strategy for the trust collapse. Admitted partners only.</p>
+                        <button onclick="showView('intake')" class="bg-white text-black px-10 py-4 text-[10px] uppercase tracking-[0.4em] font-bold">Secure Admission</button>
+                    </div>
+                    <div class="flex-1 bg-zinc-950 flex items-center justify-center min-h-[400px]">
+                        <img src="portrait.jpg" class="w-full h-full object-cover grayscale opacity-80" alt="Portrait">
+                    </div>
                 </div>
-                <div class="bg-[#050505] p-8 reveal" style="transition-delay: 0.1s;">
-                    <div class="text-[9px] text-white/30 mb-6 font-mono">03—05</div>
-                    <div class="text-xs uppercase tracking-widest font-bold mb-3">Architecture</div>
-                    <p class="text-[11px] text-[#666] leading-relaxed">System design and sovereign stress-testing.</p>
+            </div>
+
+            <div id="view-process" class="content-view">
+                <div class="p-8 md:p-20">
+                    <h2 class="authority-serif text-4xl mb-12 italic">The 14-Day Protocol</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-5 gap-px bg-white/5 border border-white/5">
+                        <div class="bg-[#0c0c0c] p-6 text-center">
+                            <div class="text-[10px] opacity-30 mb-4">Phase 01</div>
+                            <div class="text-[11px] uppercase tracking-widest font-bold">Extraction</div>
+                        </div>
+                        <div class="bg-[#0c0c0c] p-6 text-center">
+                            <div class="text-[10px] opacity-30 mb-4">Phase 02</div>
+                            <div class="text-[11px] uppercase tracking-widest font-bold">Architecture</div>
+                        </div>
+                        <div class="bg-[#0c0c0c] p-6 text-center">
+                            <div class="text-[10px] opacity-30 mb-4">Phase 03</div>
+                            <div class="text-[11px] uppercase tracking-widest font-bold">Velocity</div>
+                        </div>
+                        <div class="bg-[#0c0c0c] p-6 text-center">
+                            <div class="text-[10px] opacity-30 mb-4">Phase 04</div>
+                            <div class="text-[11px] uppercase tracking-widest font-bold">Refine</div>
+                        </div>
+                        <div class="bg-white text-black p-6 text-center font-bold">
+                            <div class="text-[10px] opacity-50 mb-4">Phase 05</div>
+                            <div class="text-[11px] uppercase tracking-widest">Exit</div>
+                        </div>
+                    </div>
+                    <p class="mt-12 text-[#666] text-sm max-w-2xl leading-relaxed">Each sprint is a surgical isolation of core outcome failure, followed by high-bandwidth asset construction.</p>
                 </div>
-                <div class="bg-[#050505] p-8 reveal" style="transition-delay: 0.2s;">
-                    <div class="text-[9px] text-white/30 mb-6 font-mono">06—10</div>
-                    <div class="text-xs uppercase tracking-widest font-bold mb-3">Velocity</div>
-                    <p class="text-[11px] text-[#666] leading-relaxed">High-bandwidth asset construction and build.</p>
+            </div>
+
+            <div id="view-intake" class="content-view">
+                <div class="max-w-xl mx-auto p-8 md:p-20">
+                    <h2 class="authority-serif text-4xl mb-4 italic">Strategic Intake</h2>
+                    <p class="text-xs text-zinc-500 mb-12 uppercase tracking-widest">Protocol V.2025_Admission</p>
+                    <form id="intake-form" class="space-y-10">
+                        <input type="text" placeholder="IDENTITY / TITLE" class="input-field" required>
+                        <input type="text" placeholder="INSTITUTIONAL ENTITY" class="input-field" required>
+                        <textarea placeholder="THE SINGLE PAINFUL PROBLEM" rows="2" class="input-field resize-none" required></textarea>
+                        <button type="submit" class="w-full border border-white py-6 uppercase text-[10px] tracking-[0.5em] hover:bg-white hover:text-black transition-all">Initiate Protocol</button>
+                    </form>
                 </div>
-                <div class="bg-[#050505] p-8 reveal" style="transition-delay: 0.3s;">
-                    <div class="text-[9px] text-white/30 mb-6 font-mono">11—13</div>
-                    <div class="text-xs uppercase tracking-widest font-bold mb-3">Refinement</div>
-                    <p class="text-[11px] text-[#666] leading-relaxed">Friction removal and final institutional polish.</p>
+            </div>
+
+            <div id="view-future" class="content-view">
+                <div class="p-8 md:p-20 text-center">
+                    <h2 class="authority-serif text-5xl mb-8 italic">The 2026 Shift.</h2>
+                    <p class="text-[#666] text-lg max-w-xl mx-auto font-light leading-relaxed">
+                        Trust is no longer built; it is preserved. Our future briefings on the "Cognitive Moat" are reserved for admitted partners.
+                    </p>
+                    <div class="mt-16 text-[9px] tracking-[0.4em] opacity-30 uppercase">System Status: Monitoring Trends</div>
                 </div>
-                <div class="bg-white p-8 reveal" style="transition-delay: 0.4s;">
-                    <div class="text-[9px] text-black/40 mb-6 font-mono">14</div>
-                    <div class="text-xs uppercase tracking-widest font-bold text-black mb-3">Handover</div>
-                    <p class="text-[11px] text-black/70 leading-relaxed">Full sovereign asset deployment and exit.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-white/5 border-t border-white/5">
+                <div class="p-10 bg-[#0c0c0c] hover:bg-[#111] transition-all cursor-pointer group" onclick="showView('process')">
+                    <h3 class="authority-serif text-lg italic mb-2">The Process</h3>
+                    <p class="text-[10px] text-[#555] group-hover:text-zinc-400">View the 14-day execution sprint.</p>
+                </div>
+                <div class="p-10 bg-[#0c0c0c] hover:bg-[#111] transition-all cursor-pointer group" onclick="showView('intake')">
+                    <h3 class="authority-serif text-lg italic mb-2">The Intake</h3>
+                    <p class="text-[10px] text-[#555] group-hover:text-zinc-400">Secure an institutional engagement.</p>
+                </div>
+                <div class="p-10 bg-[#0c0c0c] hover:bg-[#111] transition-all cursor-pointer group" onclick="showView('future')">
+                    <h3 class="authority-serif text-lg italic mb-2">The Future</h3>
+                    <p class="text-[10px] text-[#555] group-hover:text-zinc-400">Access the briefing archives.</p>
                 </div>
             </div>
         </div>
-    </section>
+    </main>
 
-    <section id="intake" class="py-40 px-6 border-t border-white/5">
-        <div class="max-w-2xl mx-auto reveal">
-            <div class="mb-16">
-                <h2 class="authority-serif text-4xl mb-4">Strategic Intake</h2>
-                <p class="text-sm text-[#666] tracking-wide">Reviewing three institutional engagements per quarter.</p>
-            </div>
-            <form id="intake-form" class="space-y-10">
-                <div class="group">
-                    <input type="text" placeholder="Identity / Title" class="input-field" required>
-                </div>
-                <div class="group">
-                    <input type="text" placeholder="Institutional Entity" class="input-field" required>
-                </div>
-                <div class="group">
-                    <textarea placeholder="The Single Painful Problem" rows="2" class="input-field resize-none" required></textarea>
-                </div>
-          <div class="pt-10">
-    <button type="submit" 
-            aria-label="Submit Strategic Intake Form"
-            class="w-full border border-white py-6 uppercase text-[10px] tracking-[0.5em] hover:bg-white hover:text-black transition-all duration-700">
-        Initiate Protocol
-    </button>
-</div>
-            </form>
-        </div>
-    </section>
+    <script>
+        function showView(viewId) {
+            // Hide all views
+            document.querySelectorAll('.content-view').forEach(view => {
+                view.classList.remove('active');
+            });
+            // Show selected view
+            const target = document.getElementById('view-' + viewId);
+            if (target) {
+                target.classList.add('active');
+                // Update Status Tag
+                document.getElementById('status-tag').innerText = 'System Status: ' + viewId.toUpperCase();
+                // Scroll to top of dashboard
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
 
-    <section id="loop" class="py-40 px-6 bg-[#030303] border-t border-white/5">
-        <div class="max-w-3xl mx-auto text-center reveal">
-            <h2 class="authority-serif text-5xl mb-8 italic">The 2026 Shift.</h2>
-            <p class="text-[#555] text-lg max-w-xl mx-auto font-light leading-relaxed">
-                Trust is no longer built; it is preserved. Our future briefings on the "Cognitive Moat" are reserved for admitted partners.
-            </p>
-            <div class="mt-16 text-[9px] tracking-[0.4em] opacity-30 uppercase font-mono">System Status: Monitoring</div>
-        </div>
-    </section>
-
-    <footer class="py-20 px-8 border-t border-white/5 flex justify-between items-center opacity-30 text-[9px] tracking-[0.4em]">
-        <div>©2025 PRIMEWARD.CO</div>
-        <div class="italic">Sovereign Execution Unit</div>
-    </footer>
-
-<!-- Your other sections above -->
-
-<script>
-    // Intersection Observer for Reveal
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) entry.target.classList.add('active');
+        // Form Submission Logic
+        document.getElementById('intake-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const overlay = document.getElementById('success-overlay');
+            overlay.style.display = 'flex';
+            setTimeout(() => {
+                window.location.href = "mailto:ochiengt233@gmail.com?subject=PrimeWard Intake Protocol";
+            }, 2000);
         });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-    // Form Animation & Redirection
-    document.getElementById('intake-form').addEventListener('submit', function(e) {
-        e.preventDefault();
-
-        const overlay = document.getElementById('success-overlay');
-        overlay.classList.add('show'); // fade in overlay
-
-        setTimeout(() => {
-            window.location.href = "mailto:ochiengt233@gmail.com?subject=PrimeWard Intake: Initial Protocol";
-        }, 2500); // wait 2.5s before opening mailto
-    });
-</script>
-
+    </script>
 </body>
 </html>
